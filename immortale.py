@@ -1,3 +1,4 @@
+
 import time
 from adafruit_servokit import ServoKit
 
@@ -8,11 +9,13 @@ angles=[90, 90, 90]
 for i in range(3):
 	kit.servo[i].angle = angles[i]
 
+kit.servo[i].set_pulse_width_range(2000)
 
 def straight():
 	kit.servo[1].angle = 70
 	kit.servo[0].angle = 120
 	kit.servo[2].angle = 130
+	time.sleep(1)
 	kit.servo[2].angle = 90
 	kit.servo[1].angle = 90
 	kit.servo[0].angle = 90
@@ -40,6 +43,3 @@ while True:
 	if(comand=='d'):
 		angles[2] -= 5
 		kit.servo[2].angle = angles[2]
-	
-
-	
