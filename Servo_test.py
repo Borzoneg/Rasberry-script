@@ -3,24 +3,29 @@ from adafruit_servokit import ServoKit
 
 kit = ServoKit(channels=16)
 
-while true:
+angles=[90, 90, 90]
+
+for i in range(3):
+	kit.servo[i].angle = angles[i]
+
+while True:
 	comand = input()
 	if(comand=='q'):
-		angle0 += 1
-		kit.servo[0].angle = angle0 
+		angles[0] += 5
+		kit.servo[0].angle = angles[0]
 	if(comand=='w'):
-		angle1 += 1
-		kit.servo[1].angle = angle1
+		angles[1] += 5
+		kit.servo[1].angle = angles[1]
 	if(comand=='e'):
-		angle2 += 1
-		kit.servo[2].angle = angle2
+		angles[2] += 5
+		kit.servo[2].angle = angles[2]
 	if(comand=='a'):
-		angle0 -= 1
-		kit.servo[0].angle = angle0
+		angles[0] -= 5
+		kit.servo[0].angle = angles[0]
 	if(comand=='s'):
-		angle1 -= 1
-		kit.servo[1].angle = angle1
+		angles[1] -= 5
+		kit.servo[1].angle = angles[1]
 	if(comand=='d'):
-		angle2 -= 1
-		kit.servo[2].angle = angle2
+		angles[2] -= 5
+		kit.servo[2].angle = angles[2]
 	
