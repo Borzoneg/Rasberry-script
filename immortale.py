@@ -8,6 +8,16 @@ angles=[90, 90, 90]
 for i in range(3):
 	kit.servo[i].angle = angles[i]
 
+
+def straight():
+	kit.servo[1].angle = 70
+	kit.servo[0].angle = 120
+	kit.servo[2].angle = 130
+	kit.servo[2].angle = 90
+	kit.servo[1].angle = 90
+	kit.servo[0].angle = 90
+
+
 while True:
 	comand = input()
 	if(comand=='l'):
@@ -32,11 +42,4 @@ while True:
 		kit.servo[2].angle = angles[2]
 	
 
-def straight():
-	kit.servo[1].angle = 70
-	kit.servo[0].angle = 120
-	kit.servo[2].angle = 130
-	kit.servo[2].angle = 90
-	kit.servo[1].angle = 90
-	kit.servo[0].angle = 90
 	
