@@ -10,31 +10,24 @@ for i in range(3):
 	kit.servo[i].angle = angles[i]
 
 
-def straight():
-	kit.servo[1].angle = 70
-	kit.servo[0].angle = 120
-	kit.servo[2].angle = 130
-	time.sleep(1)
-	kit.servo[2].angle = 90
-	kit.servo[1].angle = 90
-	kit.servo[0].angle = 90
-
-
-def moveServo(servo, currentAngle, targetAngle):
+def moveServo(servoNr, currentAngle, targetAngle):
 	while(currentAngle != targetAngle):
-		currentAngle += 5
-		servo.angle(currentAngle)
-		time.wait(0.5)
-
+		if currentAngle < targetAngle:
+			currentAngle += 5
+		else: 
+			currentAngle -= 5
+		kit.servo[servoNr].angle = currentAngle
+		time.sleep(0.5)
 
 
 def straight(leg):
-	moveServo(kit.servo[leg+1], 90, 70)
-	moveServo(kit.servo[leg+0], 90, 120)
-	moveServo(kit.servo[leg+2], 90, 130)
-	moveServo(kit.servo[leg+2], 70, 90)
-	moveServo(kit.servo[leg+1], 120, 90)
-	moveServo(kit.servo[leg+0], 130, 90)
+	moveServo(leg+1, 90, 70)
+	moveServo(leg+0, 90, 120)
+	moveServo(leg+2, 90, 130)
+	moveServo(leg+1, 70, 90)
+	moveServo(leg+0, 120, 90)
+	moveServo(leg+2, 130, 90)
+
 
 kit.servo[i].set_pulse_width_range(1000)
 
