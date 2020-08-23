@@ -27,11 +27,11 @@ for i in range(3):
 def moveServo(servoNr, currentAngle, targetAngle): # function to move Servo in way less rough that could cause breaks or problems in general
 	while(currentAngle != targetAngle): # continuous cycle to get to the target angle
 		if currentAngle < targetAngle: # check if we have to go 'up' or 'down'
-			currentAngle += 5
+			currentAngle += 1
 		else: 
-			currentAngle -= 5
+			currentAngle -= 1
 		kit.servo[servoNr].angle = currentAngle
-		time.sleep(0.5)
+		time.sleep(0.007)
 
 
 def straight(leg): # sequence to move the target leg one step forward
@@ -64,3 +64,7 @@ while True: # continuous cycle to check for input
 	if(comand=='d'):
 		angles[2] -= 5
 		kit.servo[2].angle = angles[2]
+	if(comand=='o'):
+		kit.servo[2].angle = 180
+	if(comand=='p'):
+		kit.servo[2].angle = 0
