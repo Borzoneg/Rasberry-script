@@ -11,6 +11,14 @@ V+ board 	->	X4 AA battery(6V)
 
 Power up for raspberry provided by ?
 
+Servos enumeration:
+
+  0_1_2-*0*-----*1*-2_1_0
+		 |		|
+		 |		|
+		 |		|
+  0_1_2-*2*----*3*-2_1_0
+
 """
 
 import time
@@ -34,7 +42,8 @@ def moveServo(servoNr, currentAngle, targetAngle): # function to move Servo in w
 		time.sleep(0.007)
 
 
-def straight(leg): # sequence to move the target leg one step forward
+def straightStep(leg): # sequence to move the target leg one step forward
+	leg *= 3 # leg 0 has the servo 0,1,2; leg 1 has the servo 3+0, 3+1, 3+2 and so... 
 	moveServo(leg+1, 90, 70)
 	moveServo(leg+0, 90, 120)
 	moveServo(leg+2, 90, 130)
@@ -42,10 +51,49 @@ def straight(leg): # sequence to move the target leg one step forward
 	moveServo(leg+0, 120, 90)
 	moveServo(leg+2, 130, 90)
 
+
+def backStep(leg): # sequence to move the target leg one step forward
+	leg *= 3 # leg 0 has the servo 0,1,2; leg 1 has the servo 3+0, 3+1, 3+2 and so... 
+	moveServo(leg+1, 90, 70)
+	moveServo(leg+0, 90, 120)
+	moveServo(leg+2, 90, 50)
+	moveServo(leg+1, 70, 90)
+	moveServo(leg+0, 120, 90)
+	moveServo(leg+2, 50, 90)
+
+
+def straightPace(): # sequence to move the whole robot one step forward, the robot make a step with each leg and end up as it has started
+	straightStep(0)
+	straightStep(3)
+	straightStep(1)
+	straightStep(2)
+
+
+def backPace(): # sequence to move the whole robot one step back, the robot make a step with each leg and end up as it has started
+	backStep(0)
+	backStep(3)
+	backStep(1)
+	backStep(2)
+
+
+def clockwise(): # sequence to move the whole robot one step forward, the robot make a step with each leg and end up as it has started
+	straightStep(0)
+	backStep(3)
+	straightStep(2)
+	backtStep(1)
+
+
+def antiClockwise(): # sequence to move the whole robot one step forward, the robot make a step with each leg and end up as it has started
+	backtStep(0)
+	straightStep(3)
+	backStep(2)
+	straighttStep(1)
+
+
 while True: # continuous cycle to check for input
 	comand = input()
 	if(comand=='l'):
-		straight(0)
+		straightStep(0)
 	if(comand=='q'):
 		angles[0] += 5
 		kit.servo[0].angle = angles[0]
