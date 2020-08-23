@@ -7,7 +7,9 @@ VCC board 	->	pin nr°1 Raspberry(3.3[V])
 SDA board 	-> 	pin nr°3 Raspberry(SDA)
 SCL board 	-> 	pin nr°5 Raspberry(SCL) 
 GND board 	->	pin nr°9 Raspberry(GND)
-V+ board 	->	5[V] provided by Arduino uno
+V+ board 	->	X4 AA battery(6V)
+
+Power up for raspberry provided by ?
 
 """
 
