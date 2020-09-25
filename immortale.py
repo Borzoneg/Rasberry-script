@@ -26,10 +26,15 @@ from adafruit_servokit import ServoKit
 
 kit = ServoKit(channels=16) # specify type of board 
 
-angles=[90, 90, 90] # initial setting of servos
-
-for i in range(3):
-	kit.servo[i].angle = angles[i]
+def reset():
+	resetAngle = 90 # initial setting of servos
+	servos = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+	for servo in servos:
+		kit.servo[servo].angle = resetAngle
+	
+	moveServo(0, 90, 45)
+	moveServo(4, 90, 135)
+	moveServo(8, 90, 45)
 
 
 def moveServo(servoNr, currentAngle, targetAngle): # function to move Servo in way less rough that could cause breaks or problems in general
@@ -44,13 +49,14 @@ def moveServo(servoNr, currentAngle, targetAngle): # function to move Servo in w
 
 def straightStep(leg): # sequence to move the target leg one step forward
 	leg *= 3 # leg 0 has the servo 0,1,2; leg 1 has the servo 3+0, 3+1, 3+2 and so... 
-	moveServo(leg+1, 90, 70)
-	moveServo(leg+0, 90, 120)
-	moveServo(leg+2, 90, 130)
-	moveServo(leg+1, 70, 90)
+	moveServo(leg+1, 90, 110)
+	moveServo(leg+2, 90, 60)
+	moveServo(leg+0, 90, 60)
+	moveServo(leg+1, 110, 90)
+	"""
 	moveServo(leg+0, 120, 90)
 	moveServo(leg+2, 130, 90)
-
+	"""
 
 def backStep(leg): # sequence to move the target leg one step forward
 	leg *= 3 # leg 0 has the servo 0,1,2; leg 1 has the servo 3+0, 3+1, 3+2 and so... 
@@ -89,30 +95,12 @@ def antiClockwise(): # sequence to move the whole robot one step forward, the ro
 	backStep(2)
 	straighttStep(1)
 
-
+reset()
 while True: # continuous cycle to check for input
 	comand = input()
-	if(comand=='l'):
-		straightStep(0)
-	if(comand=='q'):
-		angles[0] += 5
-		kit.servo[0].angle = angles[0]
 	if(comand=='w'):
-		angles[1] += 5
-		kit.servo[1].angle = angles[1]
-	if(comand=='e'):
-		angles[2] += 5
-		kit.servo[2].angle = angles[2]
-	if(comand=='a'):
-		angles[0] -= 5
-		kit.servo[0].angle = angles[0]
-	if(comand=='s'):
-		angles[1] -= 5
-		kit.servo[1].angle = angles[1]
-	if(comand=='d'):
-		angles[2] -= 5
-		kit.servo[2].angle = angles[2]
-	if(comand=='o'):
-		kit.servo[2].angle = 180
-	if(comand=='p'):
-		kit.servo[2].angle = 0
+		straightStep(0)
+	if(comand=='r'):
+		reset()
+	if(comand=='t'):
+		moveServo(2, 90, 95)
