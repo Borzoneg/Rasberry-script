@@ -13,13 +13,25 @@ Power up for raspberry provided by ?
 
 Servos enumeration:
 
-  2_1_0-*0*-----*1*-0_1_2
-	 	 |		|
-		 |		|
-		 |		|
-  2_1_0-*2*----*3*-0_1_2
+2_1_0--*0*-----*1*-0_1_2
+		|		|
+		|		|
+		|		|
+2_1_0--*3*-----*2*-0_1_2
 
 """
+import ObjImmortale
 
+immortale = ObjImmortale.Immortale()
+immortale.reset()
 
-# TODO: All the ObjImmortale file, function to init the whole robot object, function to make hit move one pace forward
+# continuous cycle to check for input
+while True:
+	command = input()
+	if command == 'w':
+		immortale.straight_pace()
+	if command == 's':
+		immortale.back_pace()
+	if command == 'r':
+		leg, position = input("Insert leg and position: ")
+		immortale.reverse_servo(leg, position)

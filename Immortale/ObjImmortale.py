@@ -1,82 +1,68 @@
 import ObjServo
 
-kit = ServoKit(channels=16) # specify type of board
 
-def reset():
-	resetAngle = 90 # initial setting of servos
-	servos = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-	for servo in servos:
-		kit.servo[servo].angle = resetAngle
+class Immortale:
+	def __init__(self):
+		self.legs = list()
+		self.servos = list()
+		for legNr in range(4): 	# with these two cycle i'll create a list where at the position x, y I'll have the
+			leg = list() 		# servo in y position on the x leg
+			for servoNr in range(3):
+				servo = ObjServo.Servo(legNr, servoNr)
+				leg.append(servo)
+				self.servos.append(servo)
+			self.legs.append(leg)
 
-	moveServo(0, 90, 45)
-	moveServo(4, 90, 135)
-	moveServo(8, 90, 45)
+	def reset(self):
+		for servo in self.servos:
+			servo.reset()
 
-# function to move Servo in a less rough way that could cause breaks or problems in general
-def moveServo(servoNr, currentAngle, targetAngle):
-	while(currentAngle != targetAngle): # continuous cycle to get to the target angle
-		if currentAngle < targetAngle: # check if we have to go 'up' or 'down'
-			currentAngle += 1
-		else:
-			currentAngle -= 1
-		kit.servo[servoNr].angle = currentAngle
-		time.sleep(0.007)
+	def leg_straight_step(self, leg):
+		self.legs[leg][1].forward()
+		# self.servos[1 + leg*4].forward()
+		self.legs[leg][2].forward()
+		# self.servos[2 + leg*4].forward()
+		self.legs[leg][0].forward()
+		# self.servos[0 + leg*4].forward()
+		self.legs[leg][1].back()
+		# self.servos[1 + leg*4].back()
 
+	def leg_back_step(self, leg):
+		self.legs[leg][1].back()
+		# self.servos[1 + leg*4].back()
+		self.legs[leg][2].back()
+		# self.servos[2 + leg*4].back()
+		self.legs[leg][0].back()
+		# self.servos[0 + leg*4].back()
+		self.legs[leg][1].forward()
+		# self.servos[1 + leg*4].forward()
 
-def straightStep(leg): # sequence to move the target leg one step forward
-	leg *= 3 # leg 0 has the servo 0,1,2; leg 1 has the servo 3+0, 3+1, 3+2 and so...
-	moveServo(leg+1, 90, 110)
-	moveServo(leg+2, 90, 60)
-	moveServo(leg+0, 90, 60)
-	moveServo(leg+1, 110, 90)
-	"""
-	moveServo(leg+0, 120, 90)
-	moveServo(leg+2, 130, 90)
-	"""
+	def leg_crouch(self, leg):
+		self.legs[leg][2].set_angle(90)
+		# self.servos[1 + leg*4].set_angle(90)
+		self.legs[leg][0].set_angle(90)
+		# self.servos[2 + leg*4].set_angle(90)
 
-def backStep(leg): # sequence to move the target leg one step forward
-	leg *= 3 # leg 0 has the servo 0,1,2; leg 1 has the servo 3+0, 3+1, 3+2 and so...
-	moveServo(leg+1, 90, 70)
-	moveServo(leg+0, 90, 120)
-	moveServo(leg+2, 90, 50)
-	moveServo(leg+1, 70, 90)
-	moveServo(leg+0, 120, 90)
-	moveServo(leg+2, 50, 90)
+	# sequence to move the whole robot one step forward, the robot make a step with each leg and end up as it has started
+	def straight_pace(self):
+		self.leg_crouch(1)
+		self.leg_crouch(2)
+		self.leg_straight_step(1)
+		self.leg_crouch(0)
+		self.leg_crouch(3)
+		self.leg_straight_step(0)
 
+	def back_pace(self):
+		self.leg_crouch(3)
+		self.leg_crouch(0)
+		self.leg_straight_step(3)
+		self.leg_crouch(2)
+		self.leg_crouch(1)
+		self.leg_straight_step(2)
 
-def straightPace(): # sequence to move the whole robot one step forward, the robot make a step with each leg and end up as it has started
-	straightStep(0)
-	straightStep(3)
-	straightStep(1)
-	straightStep(2)
+	def reverse_servo(self, leg, position):
+		self.legs[leg][position].reverse()
 
+	# def clockwise(self):
 
-def backPace(): # sequence to move the whole robot one step back, the robot make a step with each leg and end up as it has started
-	backStep(0)
-	backStep(3)
-	backStep(1)
-	backStep(2)
-
-
-def clockwise(): # sequence to move the whole robot one step forward, the robot make a step with each leg and end up as it has started
-	straightStep(0)
-	backStep(3)
-	straightStep(2)
-	backtStep(1)
-
-
-def antiClockwise(): # sequence to move the whole robot one step forward, the robot make a step with each leg and end up as it has started
-	backtStep(0)
-	straightStep(3)
-	backStep(2)
-	straighttStep(1)
-
-reset()
-while True: # continuous cycle to check for input
-	comand = input()
-	if(comand=='w'):
-		straightStep(0)
-	if(comand=='r'):
-		reset()
-	if(comand=='t'):
-		moveServo(2, 90, 95)
+	# def anti_clockwise(self):
