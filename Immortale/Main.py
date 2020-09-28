@@ -38,3 +38,5 @@ while True:
 		leg = int(input("Insert leg: "))
 		position = int(input("Insert position: "))
 		immortale.reverse_servo(leg, position)
+	if command == '2':
+		immortale.hard_reset()
