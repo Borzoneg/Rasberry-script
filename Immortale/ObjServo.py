@@ -38,14 +38,13 @@ class Servo:
             else:
                 self.back(1)
 
-
     def get_info(self):
         return "Servo number: {number}; Angle: {angle}; StartAngle: {startAngle}"\
             .format(number=self.number, angle=self.angle, startAngle=self.startAngle)
 
     def reverse(self):
         self.reversed = -1 if self.reversed == 1 else 1
-	if self.startAngle == 135:
-		self.startAngle = 45
-	elif self.startAngle == 45:
-		self.startAngle = 135
+        if self.startAngle == 135:
+            self.startAngle = 45
+        elif self.startAngle == 45:
+            self.startAngle = 135
