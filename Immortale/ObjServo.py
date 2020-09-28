@@ -38,8 +38,7 @@ class Servo:
         self.set_angle(90)
 
     def reset(self):
-        self.angle = self.startAngle
-        self.set_angle(self.angle)
+        self.set_angle(self.startAngle)
 
     def get_info(self):
         return "Servo number: {number}; Angle: {angle}; StartAngle: {startAngle}"\
