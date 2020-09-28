@@ -11,10 +11,10 @@ class Servo:
         self.reversed = reversed
         if position == 0:
             self.startAngle = 90 + reversed * 45
-            print(leg, position, reversed)
         else:
             self.startAngle = 90
         self.angle = -1 # angle not set yet
+        print(leg, position, reversed, self.startAngle, self.angle)
 
     def forward(self, angle=30):
         for i in range(angle):
