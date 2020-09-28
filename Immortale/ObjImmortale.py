@@ -3,12 +3,13 @@ import ObjServo
 
 class Immortale:
 	def __init__(self):
+		reversed_servo = [[-1, 1, 1], [1, 1, 1], [-1, 1, 1], [1, 1, 1]]
 		self.legs = list()
 		self.servos = list()
 		for legNr in range(4): 	# with these two cycle i'll create a list where at the position x, y I'll have the
 			leg = list() 		# servo in y position on the x leg
 			for servoNr in range(3):
-				servo = ObjServo.Servo(legNr, servoNr)
+				servo = ObjServo.Servo(legNr, servoNr, reversed_servo[legNr][servoNr])
 				leg.append(servo)
 				self.servos.append(servo)
 			self.legs.append(leg)
