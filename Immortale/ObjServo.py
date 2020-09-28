@@ -31,9 +31,13 @@ class Servo:
     def set_angle(self, angle):
         while self.angle != angle:
             if self.angle < angle:
-                self.forward(1)
+                self.angle = self.angle + 1
+                kit.servo[self.number].angle = self.angle
+                time.sleep(0.007)
             else:
-                self.back(1)
+                self.angle = self.angle - 1
+                kit.servo[self.number].angle = self.angle
+                time.sleep(0.007)
 
     def hard_reset(self):
         kit.servo[self.number].angle = 90
