@@ -40,3 +40,5 @@ while True:
 		immortale.reverse_servo(leg, position)
 	if command == '2':
 		immortale.hard_reset()
+	if command == '0':
+		immortale.test()

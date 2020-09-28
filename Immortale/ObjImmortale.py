@@ -67,6 +67,11 @@ class Immortale:
 	def hard_reset(self):
 		for servo in self.servos:
 			servo.hard_reset()
-	# def clockwise(self):
 
+	def test(self):
+		for servo in self.servos:
+			servo.forward()
+			servo.back()
+
+	# def clockwise(self):
 	# def anti_clockwise(self):
