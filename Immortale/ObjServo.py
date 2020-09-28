@@ -15,16 +15,6 @@ class Servo:
             self.startAngle = 90
         self.angle = -1 # angle not set yet
 
-    def set_angle(self, angle):
-        kit.servo[self.number].angle = angle
-
-    def hard_reset(self):
-        self.set_angle(90)
-
-    def reset(self):
-        self.angle = self.startAngle
-        self.set_angle(self.angle)
-
     def forward(self, angle=30):
         for i in range(angle):
             self.angle = self.angle + 1 * self.reversed
@@ -37,7 +27,19 @@ class Servo:
             kit.servo[self.number].angle = self.angle
             time.sleep(0.007)
 
+    def set_angle(self, angle):
+        while self.angle != angle:
+            if self.angle < angle:
+                self.forward(1)
+            else:
+                self.back(1)
 
+    def hard_reset(self):
+        self.set_angle(90)
+
+    def reset(self):
+        self.angle = self.startAngle
+        self.set_angle(self.angle)
 
     def get_info(self):
         return "Servo number: {number}; Angle: {angle}; StartAngle: {startAngle}"\
