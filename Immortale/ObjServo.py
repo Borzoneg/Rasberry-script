@@ -36,7 +36,7 @@ class Servo:
 
     def hard_reset(self):
         kit.servo[self.number].angle = 90
-	self.angle = 90
+        self.angle = 90
 
     def reset(self):
         self.set_angle(self.startAngle)
