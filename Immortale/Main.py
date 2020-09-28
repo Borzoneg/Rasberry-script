@@ -23,7 +23,7 @@ Servos enumeration:
 import ObjImmortale
 
 immortale = ObjImmortale.Immortale()
-immortale.reset()
+immortale.hard_reset()
 
 # continuous cycle to check for input
 while True:
