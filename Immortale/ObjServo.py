@@ -5,15 +5,16 @@ kit = ServoKit(channels=16) # specify type of board
 
 class Servo:
     def __init__(self, leg, position, reversed=1): # reversed can be 1 or -1 if the servo is reversed
+        startAngles0 = [45, 135, 45, 135]
         self.position = position
         self.leg = leg
         self.number = position + 4 * leg
         self.reversed = reversed
         if position == 0:
-            self.startAngle = 90 + reversed * 45
+            self.startAngle = startAngles0[leg]
         else:
             self.startAngle = 90
-        self.angle = -1 # angle not set yet
+        self.angle = -1  # angle not set yet
         print(leg, position, reversed, self.startAngle, self.angle)
 
     def forward(self, angle=30):

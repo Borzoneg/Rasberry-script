@@ -3,7 +3,7 @@ import ObjServo
 
 class Immortale:
 	def __init__(self):
-		reversed_servo = [[-1, 1, 1], [1, 1, 1], [-1, 1, 1], [1, 1, 1]]
+		reversed_servo = [[-1, 1, -1], [1, -1, 1], [1, -1, 1], [1, 1, 1]]
 		self.legs = list()
 		self.servos = list()
 		for legNr in range(4): 	# with these two cycle i'll create a list where at the position x, y I'll have the
