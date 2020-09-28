@@ -64,7 +64,7 @@ class Immortale:
 		self.legs[leg][position].reverse()
 
 	def hard_reset(self):
-		for servo in servos:
+		for servo in self.servos:
 			servo.hard_reset()
 	# def clockwise(self):
 
