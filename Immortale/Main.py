@@ -32,6 +32,9 @@ while True:
 		immortale.straight_pace()
 	if command == 's':
 		immortale.back_pace()
-	if command == 'r':
-		leg, position = input("Insert leg and position: ")
+	if command == '1':
+		leg = int(input("Insert leg: "))
+		position = int(input("Insert position: "))
 		immortale.reverse_servo(leg, position)
+	if command == 'r':
+		immortale.reset()

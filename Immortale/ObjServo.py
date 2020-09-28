@@ -45,3 +45,7 @@ class Servo:
 
     def reverse(self):
         self.reversed = -1 if self.reversed == 1 else 1
+	if self.startAngle == 135:
+		self.startAngle = 45
+	elif self.startAngle == 45:
+		self.startAngle = 135
