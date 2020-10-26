@@ -20,29 +20,20 @@ class Immortale:
 
 	def leg_straight_step(self, leg):
 		self.legs[leg][1].forward()
-		# self.servos[1 + leg*4].forward()
 		self.legs[leg][2].forward()
-		# self.servos[2 + leg*4].forward()
 		self.legs[leg][0].forward()
-		# self.servos[0 + leg*4].forward()
 		self.legs[leg][1].back()
-		# self.servos[1 + leg*4].back()
+		self.legs[leg][2].back()
 
 	def leg_back_step(self, leg):
 		self.legs[leg][1].back()
-		# self.servos[1 + leg*4].back()
 		self.legs[leg][2].back()
-		# self.servos[2 + leg*4].back()
 		self.legs[leg][0].back()
-		# self.servos[0 + leg*4].back()
 		self.legs[leg][1].forward()
-		# self.servos[1 + leg*4].forward()
 
 	def leg_crouch(self, leg):
 		self.legs[leg][2].set_angle(90)
-		# self.servos[1 + leg*4].set_angle(90)
 		self.legs[leg][0].set_angle(90)
-		# self.servos[2 + leg*4].set_angle(90)
 
 	# sequence to move the whole robot one step forward, the robot make a step with each leg and end up as it has started
 	def straight_pace(self):

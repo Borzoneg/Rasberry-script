@@ -15,10 +15,15 @@ gpio.setup(in2,  gpio.OUT)
 gpio.setup(in3,  gpio.OUT)
 gpio.setup(in4,  gpio.OUT)
 
-seq = [[0,0,0,1], [0,0,1,1], [0,0,1,0], [0,1,1,0], 
-        [0,1,0,0], [1,1,0,0], [1,0,0,0], [1,0,0,1]]
-     
-def clockwise():
+
+def rotate(oriantation):
+    if oriantation == 'c':
+        seq = [[0,0,0,1], [0,0,1,1], [0,0,1,0], [0,1,1,0], 
+               [0,1,0,0], [1,1,0,0], [1,0,0,0], [1,0,0,1]]
+    else:
+        seq = [[1,0,0,1], [1,0,0,0], [1,1,0,0], [0,1,0,0], 
+               [0,1,1,0], [0,0,1,0], [0,0,1,1], [0,0,0,1]]
+
     for i in range(len(seq)):
         for j in range (len(seq[i])):
             if(seq[i][j]):
@@ -26,37 +31,13 @@ def clockwise():
                
             else:
                 gpio.output(stepPins[j], False)
-        time.sleep(0.0007)                      #0.0007 massima velocità
+        time.sleep(0.001)                      #0.0007 massima velocità
 
 while True:
-    clockwise()
-
-
-"""
-seq = [[1,0,0,1], [1,0,0,0], [1,1,0,0], [0,1,0,0], 
-        [0,1,1,0], [0,0,1,0], [0,0,1,1], [0,0,0,1]]
-stepCount = len(seq)
-stepDir = 1
-stepCounter = 0
-
-while True:
-    waitTime = input("Quanto e il delay? ")
-    waitTime = int(waitTime)/ 10
-    print(stepCounter, " ", seq[stepCounter])
-    for pin in range(0, 4):
-        xpin = stepPins[pin]
-        if seq[stepCounter][pin]!= 0:
-            gpio.output(xpin, True)
-            print("Enable GPIO")
-        
-        else:
-            gpio.output(xpin,False)
-
-        stepCounter += stepDir
-
-        if(stepCounter >= stepCount):
-               stepCounter = 0
-        if(stepCounter < 0):
-               stepCounter = stepCount + stepDir
-        time.sleep(waitTime)
-"""
+    comand = input()
+    if(comand == 'd'):
+        for i in range(30):
+            rotate('c')
+    if(comand == 'a'):
+        for i in range(30):
+            rotate('a')
